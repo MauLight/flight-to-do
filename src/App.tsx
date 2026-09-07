@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PlanList } from "./components/plan-list";
 import { catPlan, humanPlan } from "./data/plans";
-import { emptyProgress, toggleSubAction } from "./lib/progress";
+import { emptyProgress, toggleDocument, toggleSubAction } from "./lib/progress";
 
 function App() {
   const [humanActive, setHumanActive] = useState(false);
@@ -35,8 +35,16 @@ function App() {
     setProgress(toggleSubAction(progress, "human", stepId, subActionId));
   }
 
+  function handleToggleHumanDocument(stepId: number, documentId: number) {
+    setProgress(toggleDocument(progress, "human", stepId, documentId));
+  }
+
   function handleToggleCatSubAction(stepId: number, subActionId: number) {
     setProgress(toggleSubAction(progress, "cat", stepId, subActionId));
+  }
+
+  function handleToggleCatDocument(stepId: number, documentId: number) {
+    setProgress(toggleDocument(progress, "cat", stepId, documentId));
   }
 
   return (
@@ -52,6 +60,7 @@ function App() {
           onActivate={handleActivateHuman}
           onSelectStep={handleSelectHumanStep}
           onToggleSubAction={handleToggleHumanSubAction}
+          onToggleDocument={handleToggleHumanDocument}
         />
         <PlanList
           title="Cat plan"
@@ -63,6 +72,7 @@ function App() {
           onActivate={handleActivateCat}
           onSelectStep={handleSelectCatStep}
           onToggleSubAction={handleToggleCatSubAction}
+          onToggleDocument={handleToggleCatDocument}
         />
       </div>
     </div>

@@ -15,6 +15,7 @@ type PlanListProps = {
   onActivate: () => void;
   onSelectStep: (stepId: number) => void;
   onToggleSubAction: (stepId: number, subActionId: number) => void;
+  onToggleDocument: (stepId: number, documentId: number) => void;
 };
 
 export function PlanList({
@@ -27,6 +28,7 @@ export function PlanList({
   onActivate,
   onSelectStep,
   onToggleSubAction,
+  onToggleDocument,
 }: PlanListProps) {
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     event.stopPropagation();
@@ -63,6 +65,7 @@ export function PlanList({
               subject={subject}
               progress={progress}
               onToggleSubAction={onToggleSubAction}
+              onToggleDocument={onToggleDocument}
             />
           ) : null}
         </div>

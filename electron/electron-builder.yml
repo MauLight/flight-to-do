@@ -1,0 +1,44 @@
+appId: com.maulight.flighttodo
+productName: Flight To-Do
+copyright: © Mau Ulisse Luz
+
+directories:
+  # Repo root, not inside electron/. The built app is not build litter to be
+  # cleaned — it is the thing being installed, dragged to the Dock from here and
+  # replaced under it on every rebuild. `electron/release/` reads as scratch and
+  # invites deletion.
+  output: ../release
+
+# esbuild has already inlined everything main reaches, so the bundle is the whole
+# app — no node_modules, no workspace symlink, nothing from front-end/ source.
+files:
+  - dist/**/*
+  - package.json
+
+# The renderer is served from disk over http://127.0.0.1, so it cannot live
+# inside the asar. `main` resolves it as resourcesPath/renderer when packaged.
+extraResources:
+  - from: ../front-end/dist
+    to: renderer
+    filter:
+      - "**/*"
+
+asar: true
+
+mac:
+  # No arch pinned on purpose. This is built on the machine that runs it, so the
+  # host architecture is the right one with nothing configured.
+  target:
+    - dmg
+  category: public.app-category.productivity
+  # No Developer ID, and none needed while the app is built on the machine that
+  # runs it: Gatekeeper only stops unsigned apps that were downloaded. The day a
+  # built .dmg is sent to someone else — which is the point of this app, since
+  # Elvira would need it too — this line has to change, or the app arrives
+  # quarantined and refuses to open.
+  identity: null
+
+dmg:
+  title: Flight To-Do
+
+publish: null

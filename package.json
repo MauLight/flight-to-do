@@ -1,29 +1,30 @@
 {
-  "name": "to-do",
+  "name": "flight-to-do",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
+  "description": "Relocation checklist for Elvira and her cat, Kazan to Santiago. Vite renderer in an Electron shell.",
+  "workspaces": [
+    "front-end",
+    "electron"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
+    "build": "npm run build:renderer && npm run build:shell",
+    "//build": "Order matters: the shell serves front-end/dist at runtime, so the renderer is built first.",
+    "build:renderer": "npm run build --workspace front-end",
+    "build:shell": "npm run build --workspace electron",
+    "dev:renderer": "npm run dev --workspace front-end",
+    "dev:desktop": "npm run dev --workspace electron",
+    "//dev:desktop": "Second terminal. Loads the Vite dev server in the window, so the renderer hot-reloads inside the app.",
+    "start:desktop": "npm run build && npm run start --workspace electron",
+    "//start:desktop": "Serves the built renderer instead of the dev server — the shape a packaged build runs in.",
+    "package": "npm run build && npm run package --workspace electron",
+    "//package": "The full chain, then the macOS .app/.dmg into release/.",
+    "lint": "npm run lint --workspace front-end",
+    "typecheck": "npm run typecheck --workspace front-end && npm run typecheck --workspace electron",
+    "//typecheck": "Delegated rather than one tsc from here, so each workspace uses its own TypeScript and its own config."
   },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "lucide-react": "^1.41.0",
-    "motion": "^13.2.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "tailwindcss": "^4.3.3"
+  "engines": {
+    "node": ">=20"
   },
-  "devDependencies": {
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "@vitejs/plugin-react": "^6.1.0",
-    "oxlint": "^1.79.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.2.2"
-  }
+  "author": "Mau Ulisse Luz"
 }

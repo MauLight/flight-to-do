@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+*.tsbuildinfo
+
+# The esbuild bundle. Rebuilt by `npm run build`, and it carries an inlined copy
+# of the back-end — committing it would put a second, stale copy of that code in
+# the history.
+dist/

@@ -26,4 +26,7 @@ dist-ssr
 # Personal plan data and working notes, deliberately untracked
 behavior.md
 handoff.md
-src/data/plans.ts
+front-end/src/data/plans.ts
+
+# Packaged desktop builds
+release

@@ -1,14 +1,20 @@
-import { Send } from "lucide-react";
 import { useState } from "react";
 import type { PlanDocument } from "../data/plans";
+import { SendButton } from "./send-button";
 
 type DocumentRowProps = {
   document: PlanDocument;
   checked: boolean;
+  reminder: string;
   onToggle: (documentId: number) => void;
 };
 
-export function DocumentRow({ document, checked, onToggle }: DocumentRowProps) {
+export function DocumentRow({
+  document,
+  checked,
+  reminder,
+  onToggle,
+}: DocumentRowProps) {
   const [expanded, setExpanded] = useState(false);
 
   function handleChange() {
@@ -30,9 +36,7 @@ export function DocumentRow({ document, checked, onToggle }: DocumentRowProps) {
           className="mt-1 size-4 shrink-0 cursor-pointer accent-green-600"
         />
 
-        <button type="button" className="mt-1 size-4 shrink-0 bg-transparent">
-          <Send className="w-3 h-3 text-cyan-500" />
-        </button>
+        <SendButton text={reminder} />
 
         <button
           type="button"
@@ -48,17 +52,17 @@ export function DocumentRow({ document, checked, onToggle }: DocumentRowProps) {
       </div>
 
       {expanded ? (
-        <dl className="mt-2 mb-1 ml-10 space-y-2 border-l border-inherit pl-4 text-xs">
+        <dl className="mt-2 mb-6 ml-10 space-y-4 border-l border-inherit pl-4 p-3 rounded-r-xl bg-[#232323] text-[0.85rem]">
           <div>
-            <dt className="uppercase tracking-wide opacity-60">Who issues</dt>
+            <dt className="text-xs tracking-wide text-blue-300">Who issues</dt>
             <dd className="opacity-90">{document.who_issues}</dd>
           </div>
           <div>
-            <dt className="uppercase tracking-wide opacity-60">Validity</dt>
+            <dt className="text-xs tracking-wide text-blue-300">Validity</dt>
             <dd className="opacity-90">{document.validity}</dd>
           </div>
           <div>
-            <dt className="uppercase tracking-wide opacity-60">Description</dt>
+            <dt className="text-xs tracking-wide text-blue-300">Description</dt>
             <dd className="leading-relaxed opacity-90">
               {document.description}
             </dd>

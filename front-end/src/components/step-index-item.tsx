@@ -7,7 +7,12 @@ type StepIndexItemProps = {
   onSelect: (stepId: number) => void;
 };
 
-export function StepIndexItem({ step, current, completed, onSelect }: StepIndexItemProps) {
+export function StepIndexItem({
+  step,
+  current,
+  completed,
+  onSelect,
+}: StepIndexItemProps) {
   function handleClick() {
     onSelect(step.id);
   }
@@ -16,7 +21,7 @@ export function StepIndexItem({ step, current, completed, onSelect }: StepIndexI
     ? "bg-green-600 border-green-600 text-white"
     : "border-border-active";
 
-  const currentClasses = current ? "ring-2 ring-text-active" : "";
+  const currentClasses = current ? "bg-cyan-600" : "";
 
   return (
     <li>

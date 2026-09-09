@@ -19,7 +19,7 @@ export function StepIndex({
 }: StepIndexProps) {
   return (
     <nav aria-label="Steps">
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-3">
         {steps.map((step) => (
           <StepIndexItem
             key={step.id}

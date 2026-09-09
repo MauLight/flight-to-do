@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { PlanList } from "./components/plan-list";
+import { TelegramSettings } from "./components/telegram-settings";
 import { catPlan, humanPlan } from "./data/plans";
-import { emptyProgress, toggleDocument, toggleSubAction } from "./lib/progress";
+import { toggleDocument, toggleSubAction } from "./lib/progress";
+import { usePersistedProgress } from "./lib/use-persisted-progress";
 
 function App() {
   const [humanActive, setHumanActive] = useState(false);
   const [catActive, setCatActive] = useState(false);
-  const [progress, setProgress] = useState(emptyProgress);
+  const {
+    progress,
+    setProgress,
+    error: progressError,
+  } = usePersistedProgress();
   const [humanStepId, setHumanStepId] = useState(humanPlan[0].id);
   const [catStepId, setCatStepId] = useState(catPlan[0].id);
 
@@ -49,7 +55,15 @@ function App() {
 
   return (
     <div onClick={handleBackgroundClick} className="min-h-svh w-full p-8">
-      <div className="mx-auto flex max-w-6xl items-start gap-6">
+      <div className="mx-auto">
+        <TelegramSettings />
+
+        {progressError === null ? null : (
+          <p className="mb-4 text-xs text-red-500">{progressError}</p>
+        )}
+      </div>
+
+      <div className="mx-auto flex items-start gap-6">
         <PlanList
           title="Human plan"
           subject="human"
